@@ -37,6 +37,9 @@ public class MainActivity extends AppCompatActivity {
                     txt2.setText(rs.getString(2));
                 }
             }
+            else {
+                ConnectionResult="Check connection";
+            }
 
         }
         catch (Exception ex){

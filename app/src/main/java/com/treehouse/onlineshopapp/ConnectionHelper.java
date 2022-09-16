@@ -1,5 +1,6 @@
 package com.treehouse.onlineshopapp;
 
+import android.annotation.SuppressLint;
 import android.os.StrictMode;
 import android.util.Log;
 
@@ -9,7 +10,7 @@ import java.sql.DriverManager;
 public class ConnectionHelper {
     Connection con;
     String uname, pass, ip, port, database;
-
+    @SuppressLint("NewApi")
     public Connection connectionclass() {
         ip = "172.1.1.0";
         database = "UserAccounts";
