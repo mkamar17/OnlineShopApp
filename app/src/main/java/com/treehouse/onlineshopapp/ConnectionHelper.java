@@ -12,7 +12,7 @@ public class ConnectionHelper {
     String uname, pass, ip, port, database;
     @SuppressLint("NewApi")
     public Connection connectionclass() {
-        ip = "172.1.1.0";
+        ip = "127.0.0.1";
         database = "UserAccounts";
         uname="sa";
         pass="reallyStrongPwd123";
