@@ -1,24 +1,30 @@
 package com.treehouse.onlineshopapp;
 
-import androidx.appcompat.app.AppCompatActivity;
-
+import android.annotation.SuppressLint;
+import android.app.Activity;
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.StrictMode;
+import android.util.Log;
 import android.view.View;
+import android.widget.Button;
+import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
-import android.support.v7.app.ActionBarActivity;
 
-public class MainActivity extends ActionBarActivtity{
+public class MainActivity extends Activity {
 
     // declaring layout button, edit texts
     public Button run;
     public TextView message;
     public ProgressBar progressBar;
-    // ddeclaring connection variables
+    // declaring connection variables
     public Connection con;
     //end declaring connection variables
 
@@ -43,7 +49,7 @@ public class MainActivity extends ActionBarActivtity{
         //end setting up function when button login clicked
     }
 
-    public class CheckLogin extends AsyncTask<String,String,String>{
+    public class CheckLogin extends AsyncTask<String,String,String> {
         String z = "";
         Boolean isSuccess = false;
         String name1 = "";
@@ -56,9 +62,9 @@ public class MainActivity extends ActionBarActivtity{
         @Override
         protected void onPostExecute(String r){
             progressBar.setVisibility(View.GONE);
-            Toast.makeText(MainActivity.this,r,Toast.LENGTH_LONG).show();
+            Toast.makeText(MainActivity.this,r, Toast.LENGTH_LONG).show();
             if(isSuccess){
-                message = (TextView) findViewbyId(R.id.textView2);
+                message = (TextView) findViewById(R.id.textView2);
                 message.setText(name1);
             }
         }
@@ -66,14 +72,15 @@ public class MainActivity extends ActionBarActivtity{
         @Override
         protected String doInBackground(String... params){
             try{
-                con =connectionclass(); //connect to database
+                con = connectionclass(); //connect to database
                 if (con == null){
                     z = "check internet access!";
                 }
                 else{
                     //change below query according to your own database
                     String query = "select * from UserAccounts";
-                    Statement stmt.executeQuery(query);
+                    Statement stmt = con.createStatement();
+                    ResultSet rs = stmt.executeQuery(query);
                     if(rs.next()){
                         name1 = rs.getString("UserName"); //name is the string of a column in the database, read through
                         z = "query successful";
@@ -109,10 +116,10 @@ public class MainActivity extends ActionBarActivtity{
             Class.forName("net.sourceforge.jtds.jdbc.Driver");
             //your database connection string goes below
             ConnectionURL="";
-            connection = DriveManager.getConnection(ConnectionURL);
+            connection = DriverManager.getConnection(ConnectionURL);
         }
         catch(SQLException se){
-            Log.e("error here 1: ", set.getMessage());
+            Log.e("error here 1: ", se.getMessage());
         }
         catch(ClassNotFoundException e){
             Log.e("error here 2: ", e.getMessage());
