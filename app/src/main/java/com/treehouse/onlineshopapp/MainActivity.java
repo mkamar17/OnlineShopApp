@@ -114,8 +114,9 @@ public class MainActivity extends Activity {
 
         try{
             Class.forName("net.sourceforge.jtds.jdbc.Driver");
+            //"com.microsoft.sqlserver.jdbc.SQLServerDriver"
             //your database connection string goes below
-            ConnectionURL="jdbc:mysql://db:1433/UserAccounts";
+            ConnectionURL="jdbc:sqlserver://localhost:1433;databaseName=master;user=sa;password=reallyStrongPwd123";
             connection = DriverManager.getConnection(ConnectionURL);
         }
         catch(SQLException se){
