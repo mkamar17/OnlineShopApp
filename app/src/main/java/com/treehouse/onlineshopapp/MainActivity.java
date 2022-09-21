@@ -78,11 +78,11 @@ public class MainActivity extends Activity {
                 }
                 else{
                     //change below query according to your own database
-                    String query = "select * from UserAccounts";
+                    String query = "select * from User_Accounts";
                     Statement stmt = con.createStatement();
                     ResultSet rs = stmt.executeQuery(query);
                     if(rs.next()){
-                        name1 = rs.getString("UserName"); //name is the string of a column in the database, read through
+                        name1 = rs.getString("User_Name"); //name is the string of a column in the database, read through
                         z = "query successful";
                         isSuccess=true;
                         con.close();
@@ -115,7 +115,7 @@ public class MainActivity extends Activity {
         try{
             Class.forName("net.sourceforge.jtds.jdbc.Driver");
             //your database connection string goes below
-            ConnectionURL="";
+            ConnectionURL="jdbc:mysql://db:1433/UserAccounts";
             connection = DriverManager.getConnection(ConnectionURL);
         }
         catch(SQLException se){
