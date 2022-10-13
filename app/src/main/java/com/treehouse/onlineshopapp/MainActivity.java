@@ -38,13 +38,9 @@ public class MainActivity extends Activity {
         progressBar = (ProgressBar) findViewById(R.id.progressBar);
 
         //setting up the function when button login is clicked
-        run.setOnClickListener(new View.OnClickListener(){
-
-            @Override
-            public void onClick(View v){
-                CheckLogin checkLogin = new CheckLogin();
-                checkLogin.execute("");
-            }
+        run.setOnClickListener(v -> {
+            CheckLogin checkLogin = new CheckLogin(); // this is the Asynctask, which is used to process in background
+            checkLogin.execute("");
         });
         //end setting up function when button login clicked
     }
@@ -82,7 +78,7 @@ public class MainActivity extends Activity {
                     Statement stmt = con.createStatement();
                     ResultSet rs = stmt.executeQuery(query);
                     if(rs.next()){
-                        name1 = rs.getString("User_Name"); //name is the string of a column in the database, read through
+                        name1 = rs.getString("UserName"); //name is the string of a column in the database, read through
                         z = "query successful";
                         isSuccess=true;
                         con.close();
@@ -114,9 +110,8 @@ public class MainActivity extends Activity {
 
         try{
             Class.forName("net.sourceforge.jtds.jdbc.Driver");
-            //"com.microsoft.sqlserver.jdbc.SQLServerDriver"
             //your database connection string goes below
-            ConnectionURL="jdbc:sqlserver://localhost:1433;databaseName=master;user=sa;password=reallyStrongPwd123";
+            ConnectionURL="jdbc:jtds:sqlserver://maryamserver.database.windows.net:1433;DatabaseName=ShoppingApp;user=mkamar@maryamserver;password=Maryam2005;encrypt=true;trustServerCertificate=false;hostNameInCertificate=*.database.windows.net;loginTimeout=30;";
             connection = DriverManager.getConnection(ConnectionURL);
         }
         catch(SQLException se){
